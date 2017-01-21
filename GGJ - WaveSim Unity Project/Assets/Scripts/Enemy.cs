@@ -8,9 +8,19 @@ public class Enemy : MonoBehaviour {
     public int targetSatisfaction = 100;
     public float speed = 1;
 
-	void Start () {
-		
-	}
+    void Start() {
+        int headIndex = Random.Range(0, 5);
+
+        /*GameObject head = (GameObject)Resources.Load("Heads/" + headIndex);
+        head.transform.parent = transform.FindChild("HeadParent").transform;
+        head.transform.localPosition = Vector3.zero;*/
+
+        SpriteRenderer bodySprite = GetComponent<SpriteRenderer>();
+
+        Color colour = new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 1);
+        bodySprite.color = colour;
+        //head.GetComponent<SpriteRenderer>().color = colour;
+    }
 
     // Update is called once per frame
     void Update() {
