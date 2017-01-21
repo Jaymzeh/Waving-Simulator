@@ -12,34 +12,30 @@ public class MouseWave : MonoBehaviour {
 
     float xMovement, yMovement;
 
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start() {
+    }
+
+    // Update is called once per frame
+    void Update() {
         if (!GameController.Paused && GameController.InputEnabled) {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin,ray.direction);
-        RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction);
+            RaycastHit hit;
 
-        float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
-        float angleDeg = (180 / Mathf.PI) * angleRad;
-        transform.rotation = Quaternion.Euler(0, 0, angleDeg-45);
+            float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg - 45);
 
-            if(particleSpartikle.isPlaying)
+            particleSpartikle.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2);
+
+
+            if (particleSpartikle.isPlaying)
                 particleSpartikle.Stop();
             if (Physics.Raycast(ray, out hit, enemyLayer)) {
-                if(particleSpartikle.isStopped)
-                particleSpartikle.Play();
+                if (particleSpartikle.isStopped)
+                    particleSpartikle.Play();
                 particleSpartikle.transform.position = new Vector3(hit.point.x, hit.point.y, 2);
-
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-
-                xMovement = Input.GetAxis("Mouse X");
-                yMovement = Input.GetAxis("Mouse Y");
-
-                enemy.satisfaction += 1 + ((xMovement * 20) + (yMovement * 20));
             }
         }
-	}
+    }
 }

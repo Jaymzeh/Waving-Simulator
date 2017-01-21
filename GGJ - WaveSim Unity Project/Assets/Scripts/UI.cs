@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour {
     GameObject[] backgrounds;
     public static UI instance;
+    
     
     void Awake() {
         instance = this;

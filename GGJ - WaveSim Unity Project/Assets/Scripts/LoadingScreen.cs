@@ -38,10 +38,11 @@ public class LoadingScreen : MonoBehaviour {
         while (!async.isDone) {
             progress = (int)(async.progress * 100);
             text.text = "Progress: " + progress + "%";
-            GameController.Paused = false;
+            
             yield return null;
         }
         background.SetActive(false);
         text.gameObject.SetActive(false);
+        GameController.Paused = false;
     }
 }
