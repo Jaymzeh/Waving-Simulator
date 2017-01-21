@@ -13,38 +13,44 @@ public class WindowTransition : MonoBehaviour {
 
 
     public void MoveLeft() {
-        transform.FindChild("MoveRight").gameObject.SetActive(true);
+        if (GameController.InputEnabled) {
+            transform.FindChild("MoveRight").gameObject.SetActive(true);
 
-        bool hasLeft = false;
-        foreach (GameObject w in windows) {
-            if (w.transform.position.x < (Camera.main.transform.position.x - 30)) {
-                hasLeft = true;
-                break;
+            bool hasLeft = false;
+            foreach (GameObject w in windows) {
+                if (w.transform.position.x < (Camera.main.transform.position.x - 30f)) {
+                    hasLeft = true;
+                    break;
+                }
             }
+            transform.FindChild("MoveLeft").gameObject.SetActive(hasLeft);
+            StartCoroutine("MoveWindow", Camera.main.transform.position.x - 30f);
         }
-        transform.FindChild("MoveLeft").gameObject.SetActive(hasLeft);
-        StartCoroutine("MoveWindow", Camera.main.transform.position.x - 30);
     }
 
     public void MoveRight() {
-        transform.FindChild("MoveLeft").gameObject.SetActive(true);
+        if (GameController.InputEnabled) {
+            transform.FindChild("MoveLeft").gameObject.SetActive(true);
 
-        bool hasRight = false;
-        foreach (GameObject w in windows) {
-            if (w.transform.position.x > (Camera.main.transform.position.x + 30)) {
-                hasRight = true;
-                break;
+            bool hasRight = false;
+            foreach (GameObject w in windows) {
+                if (w.transform.position.x > (Camera.main.transform.position.x + 30f)) {
+                    hasRight = true;
+                    break;
+                }
             }
+            transform.FindChild("MoveRight").gameObject.SetActive(hasRight);
+            StartCoroutine("MoveWindow", Camera.main.transform.position.x + 30f);
         }
-        transform.FindChild("MoveRight").gameObject.SetActive(hasRight);
-        StartCoroutine("MoveWindow", Camera.main.transform.position.x + 30);
     }
 
     IEnumerator MoveWindow(int x) {
+        GameController.InputEnabled = false;
         while (Camera.main.transform.position.x != x) {
             Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, new Vector3(x, Camera.main.transform.position.y, Camera.main.transform.position.z), 1);
             yield return null;
         }
+        GameController.InputEnabled = true;
     }
 
     
