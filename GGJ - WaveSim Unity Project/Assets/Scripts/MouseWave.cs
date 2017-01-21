@@ -30,7 +30,7 @@ public class MouseWave : MonoBehaviour {
             xMovement = Input.GetAxis("Mouse X");
             yMovement = Input.GetAxis("Mouse Y");
 
-            enemy.satisfaction += 1 + ((10 * xMovement) + (10 * yMovement));
+            enemy.satisfaction += 1 + ((xMovement*20) + (yMovement*20));
             //enemy.satisfaction++;
 
         }
