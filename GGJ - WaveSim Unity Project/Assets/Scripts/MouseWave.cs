@@ -20,27 +20,17 @@ public class MouseWave : MonoBehaviour {
         Debug.DrawRay(ray.origin,ray.direction);
         RaycastHit hit;
 
-        
+        float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
+        float angleDeg = (180 / Mathf.PI) * angleRad;
+        transform.rotation = Quaternion.Euler(0, 0, angleDeg-45);
 
         if (Physics.Raycast(ray, out hit, enemyLayer)) {
-
-            if (transform.localEulerAngles.z > 110 || transform.eulerAngles.z < 70)
-            direction *= -1;
-        
-
             Enemy enemy = hit.collider.GetComponent<Enemy>();
 
             xMovement = Input.GetAxis("Mouse X");
             yMovement = Input.GetAxis("Mouse Y");
 
-            Debug.Log("Mouse movement[" + xMovement + "," + yMovement + "]");
-            Debug.Log("Total["+xMovement+yMovement+"]");
-            if(xMovement+yMovement <0.25)
-                transform.Rotate(0, 0, direction*slowWave);
-            else
-                transform.Rotate(0, 0, direction*fastWave);
-
-            enemy.satisfaction += 1 + xMovement + yMovement;
+            enemy.satisfaction += 1 + ((10 * xMovement) + (10 * yMovement));
             //enemy.satisfaction++;
 
         }
