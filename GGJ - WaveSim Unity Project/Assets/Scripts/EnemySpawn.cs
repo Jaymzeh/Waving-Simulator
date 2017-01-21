@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawn : MonoBehaviour {
 
     public float spawnRate;
     public GameObject[] enemies;
     float timer = 0;
-
-
+    public Image healthBar;
+    public float windowHealth = 100;
 
     void Update() {
         if (!GameController.Paused) {
@@ -19,6 +20,13 @@ public class EnemySpawn : MonoBehaviour {
                 timer = 0;
             }
         }
+        if (Camera.main.transform.position.x == transform.position.x)
+            ShowHealth();
+    }
+
+    public void ShowHealth() {
+        RectTransform rectTransform = (RectTransform)healthBar.transform;
+        rectTransform.sizeDelta = new Vector2(windowHealth*4, 100);
     }
 
     void SpawnEnemy() {

@@ -26,15 +26,16 @@ public class Enemy : MonoBehaviour {
                     Destroy(gameObject);
             }
             else {
-                transform.Translate(0, -speed, -speed * 0.001f);
-                transform.localScale += (Vector3.one * 0.0005f);
+                if (transform.position.y > -4.5f) {
+                    transform.Translate(0, -speed, -speed * 0.001f);
+                    transform.localScale += (Vector3.one * 0.0005f);
+                }
             }
 
-            /*if (transform.position.y <= -4.5f) {
+            if (transform.position.y <= -4.5f) {
 
-                GameController.Paused = false;
-                GameController.ShowGameOver();
-            }*/
+
+            }
         }
     }
 }
