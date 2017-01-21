@@ -13,12 +13,30 @@ public class WindowTransition : MonoBehaviour {
 
 
     public void MoveLeft() {
+        transform.FindChild("MoveRight").gameObject.SetActive(true);
+
+        bool hasLeft = false;
+        foreach (GameObject w in windows) {
+            if (w.transform.position.x < (Camera.main.transform.position.x - 30)) {
+                hasLeft = true;
+                break;
+            }
+        }
+        transform.FindChild("MoveLeft").gameObject.SetActive(hasLeft);
         StartCoroutine("MoveWindow", Camera.main.transform.position.x - 30);
     }
 
-
-
     public void MoveRight() {
+        transform.FindChild("MoveLeft").gameObject.SetActive(true);
+
+        bool hasRight = false;
+        foreach (GameObject w in windows) {
+            if (w.transform.position.x > (Camera.main.transform.position.x + 30)) {
+                hasRight = true;
+                break;
+            }
+        }
+        transform.FindChild("MoveRight").gameObject.SetActive(hasRight);
         StartCoroutine("MoveWindow", Camera.main.transform.position.x + 30);
     }
 
@@ -28,4 +46,7 @@ public class WindowTransition : MonoBehaviour {
             yield return null;
         }
     }
+
+    
+
 }
