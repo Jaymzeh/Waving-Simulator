@@ -15,18 +15,22 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (!GameController.Paused) {
-            if (satisfaction >= targetSatisfaction)
-                Destroy(gameObject);
+            if (satisfaction >= targetSatisfaction) {
+                transform.Translate(0, speed*1.5f, speed * 0.001f);
+                transform.localScale -= (Vector3.one * 0.005f);
+                if (transform.localScale.x < 0.000001f)
+                    Destroy(gameObject);
+            }
+            else {
+                transform.Translate(0, -speed, -speed * 0.001f);
+                transform.localScale += (Vector3.one * 0.0005f);
+            }
 
-            if (transform.position.y <= -4.5) {
+            if (transform.position.y <= -4.5f) {
 
                 GameController.Paused = false;
                 GameController.ShowGameOver();
             }
-
-
-            transform.Translate(0, -speed, -speed * 0.001f);
-            transform.localScale += (Vector3.one * 0.0005f);
         }
     }
 }

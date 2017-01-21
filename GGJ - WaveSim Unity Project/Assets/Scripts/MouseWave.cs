@@ -16,7 +16,7 @@ public class MouseWave : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!GameController.Paused) {
+        if (!GameController.Paused && GameController.InputEnabled) {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin,ray.direction);
         RaycastHit hit;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public static GameController instance;
-    public static bool InputEnabled;
+    public static bool InputEnabled = true;
     public static bool Paused = false;
     public GameObject gameOver;
 

@@ -17,13 +17,13 @@ public class WindowTransition : MonoBehaviour {
 
         bool hasLeft = false;
         foreach (GameObject w in windows) {
-            if (w.transform.position.x < (Camera.main.transform.position.x - 30)) {
+            if (w.transform.position.x < (Camera.main.transform.position.x - 30f)) {
                 hasLeft = true;
                 break;
             }
         }
         transform.FindChild("MoveLeft").gameObject.SetActive(hasLeft);
-        StartCoroutine("MoveWindow", Camera.main.transform.position.x - 30);
+        StartCoroutine("MoveWindow", Camera.main.transform.position.x - 30f);
     }
 
     public void MoveRight() {
@@ -31,20 +31,22 @@ public class WindowTransition : MonoBehaviour {
 
         bool hasRight = false;
         foreach (GameObject w in windows) {
-            if (w.transform.position.x > (Camera.main.transform.position.x + 30)) {
+            if (w.transform.position.x > (Camera.main.transform.position.x + 30f)) {
                 hasRight = true;
                 break;
             }
         }
         transform.FindChild("MoveRight").gameObject.SetActive(hasRight);
-        StartCoroutine("MoveWindow", Camera.main.transform.position.x + 30);
+        StartCoroutine("MoveWindow", Camera.main.transform.position.x + 30f);
     }
 
     IEnumerator MoveWindow(int x) {
+        GameController.InputEnabled = false;
         while (Camera.main.transform.position.x != x) {
             Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, new Vector3(x, Camera.main.transform.position.y, Camera.main.transform.position.z), 1);
             yield return null;
         }
+        GameController.InputEnabled = true;
     }
 
     
