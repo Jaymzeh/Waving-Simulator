@@ -7,12 +7,17 @@ public class EnemySpawn : MonoBehaviour {
     public float spawnRate;
     public GameObject[] enemies;
     float timer = 0;
-    void Update() {
-        timer += Time.deltaTime;
 
-        if (timer >= spawnRate) {
-            SpawnEnemy();
-            timer = 0;
+
+
+    void Update() {
+        if (!GameController.Paused) {
+            timer += Time.deltaTime;
+
+            if (timer >= spawnRate) {
+                SpawnEnemy();
+                timer = 0;
+            }
         }
     }
 

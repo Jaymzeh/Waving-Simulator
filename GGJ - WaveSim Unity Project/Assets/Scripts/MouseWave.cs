@@ -16,6 +16,7 @@ public class MouseWave : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!GameController.Paused) {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin,ray.direction);
         RaycastHit hit;
@@ -24,16 +25,14 @@ public class MouseWave : MonoBehaviour {
         float angleDeg = (180 / Mathf.PI) * angleRad;
         transform.rotation = Quaternion.Euler(0, 0, angleDeg-45);
 
-        if (Physics.Raycast(ray, out hit, enemyLayer)) {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (Physics.Raycast(ray, out hit, enemyLayer)) {
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
 
-            xMovement = Input.GetAxis("Mouse X");
-            yMovement = Input.GetAxis("Mouse Y");
+                xMovement = Input.GetAxis("Mouse X");
+                yMovement = Input.GetAxis("Mouse Y");
 
-            enemy.satisfaction += 1 + ((xMovement*20) + (yMovement*20));
-            //enemy.satisfaction++;
-
+                enemy.satisfaction += 1 + ((xMovement * 20) + (yMovement * 20));
+            }
         }
-
 	}
 }

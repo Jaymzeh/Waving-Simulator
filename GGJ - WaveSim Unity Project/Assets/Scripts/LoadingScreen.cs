@@ -22,6 +22,7 @@ public class LoadingScreen : MonoBehaviour {
         background = transform.FindChild("Background").gameObject;
         background.SetActive(false);
         text.gameObject.SetActive(false);
+        
     }
 
     public static void ChangeScene(string scene) {
@@ -37,6 +38,7 @@ public class LoadingScreen : MonoBehaviour {
         while (!async.isDone) {
             progress = (int)(async.progress * 100);
             text.text = "Progress: " + progress + "%";
+            GameController.Paused = false;
             yield return null;
         }
         background.SetActive(false);
