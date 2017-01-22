@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour {
 
         Color colour = new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 1);
         bodySprite.color = colour;
-        GetComponentInChildren<SpriteRenderer>().color = colour;
+        transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = colour;
 
         AudioControl.instance.PlaySFX(spawnSound[Random.Range(0,spawnSound.Length)]);
     }
@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour {
                 transform.localScale -= (Vector3.one * 0.005f);
                 if (transform.localScale.x < 0.000001f) {
                     GameController.score++;
+                    BossSpawner.counter++;
                     Destroy(gameObject);
                 }
             }
