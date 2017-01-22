@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharStats : MonoBehaviour {
+public class CharStats {
 
     private string _statName; //To display name of stat
     private int _statValue; //To display stat value
