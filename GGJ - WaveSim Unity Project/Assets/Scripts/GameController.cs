@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour {
     public AudioClip newHighScoreClip;
     public static int score;
     public static int highScore;
+    public static int partyCounter;
+    public static int partyTarget = 50;
 
     void Awake() {
          if (instance == null) {

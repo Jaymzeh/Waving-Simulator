@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour {
 
     void Start() {
         SpriteRenderer bodySprite = GetComponent<SpriteRenderer>();
-
         Color colour = new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 1);
         bodySprite.color = colour;
         if (transform.childCount != 0)
@@ -38,11 +37,14 @@ public class Enemy : MonoBehaviour {
                 transform.localScale -= (Vector3.one * 0.005f);
                 if (transform.localScale.x < 0.000001f) {
 
-                    if (gameObject.name.Contains("Boss"))
+                    if (gameObject.name.Contains("Boss")) {
                         GameController.score += 10;
+                        GameController.partyCounter+=25;
+                    }
                     else {
                         GameController.score++;
                         BossSpawner.counter++;
+                        GameController.partyCounter ++;
                     }
                     Destroy(gameObject);
                 }
