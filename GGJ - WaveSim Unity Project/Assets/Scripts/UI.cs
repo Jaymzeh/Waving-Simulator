@@ -15,9 +15,12 @@ public class UI : MonoBehaviour {
     void Awake() {
         instance = this;
         instance.backgrounds = GameObject.FindGameObjectsWithTag("Background");
+        
     }
 
     public void ChangeScene(string scene) {
+        if (scene == "Street")
+            GameController.score = 0;
         LoadingScreen.ChangeScene(scene);
     }
 
