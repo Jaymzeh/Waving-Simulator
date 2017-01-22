@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharStats : MonoBehaviour {
+public class CharStats {
 
     private string _statName; //To display name of stat
-    private int _statValue; //To display stat value
+    private int _statBaseValue; //To display stat value
 
     public string StatName
     {
@@ -13,21 +13,27 @@ public class CharStats : MonoBehaviour {
         set { _statName = value; }
     }
 
-    public int StatValue
+    public virtual int StatValue
     {
-        get { return _statValue; }
-        set { _statValue = value; }
+        get { return _statBaseValue; }
+        set { _statBaseValue = value; }
+    }
+
+    public virtual int StatBaseValue
+    {
+        get { return _statBaseValue; }
+        set { _statBaseValue = value; }
     }
 
     public CharStats()
     {
         this.StatName = string.Empty;
-        this.StatValue = 0;
+        this.StatBaseValue = 0;
     }
 
     public CharStats(string name, int value)
     {
         this.StatName = name;
-        this.StatValue = value;
+        this.StatBaseValue = value;
     }
 }
