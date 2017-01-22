@@ -17,6 +17,9 @@ public class UI : MonoBehaviour {
         LoadingScreen.ChangeScene(scene);
     }
 
+    public void ExitGame() {
+        GameController.ExitGame();
+    }
 
     public void PanWindows(Vector3 direction) {
         foreach(GameObject image in instance.backgrounds) {

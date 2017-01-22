@@ -5,8 +5,8 @@ using UnityEngine;
 public class AudioControl : MonoBehaviour {
 
     public static AudioControl instance;
-    public static AudioSource musicSource;
-    public static AudioSource sfxSourceOne, sfxSourceTwo;
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
 
     public static AudioClip newGameClip;
 
@@ -18,5 +18,17 @@ public class AudioControl : MonoBehaviour {
         }
         else if (instance != this)
             Destroy(gameObject);
+    }
+    public void PlaySFX(AudioClip clip) {
+        if (!sfxSource.isPlaying) {
+            sfxSource.pitch = Random.Range(0.65f, 2);
+            sfxSource.clip = clip;
+            sfxSource.Play();
+        }
+    }
+
+    public void PlayMusic(AudioClip clip) {
+        musicSource.clip = clip;
+        musicSource.Play();
     }
 }

@@ -11,11 +11,13 @@ public class CharStatsTest : MonoBehaviour {
 
         DisplayStatValues();
 
-        var wavePower = stats.GetStat<CharStatModifiable>(CharStatsType.WavePower);
-        wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.BaseValuePercent, 1.0f));
-        wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.BaseValueAdd, 5.0f));
-        wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.TotalValuePercent, 1.0f));
-        wavePower.UpdateModifiers();
+        //var wavePower = stats.GetStat<CharStatModifiable>(CharStatsType.WavePower);
+        //wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.BaseValuePercent, 1.0f));
+        //wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.BaseValueAdd, 5.0f));
+        //wavePower.AddModifier(new CharStatModifier(CharStatsType.WavePower, CharStatModifier.Types.TotalValuePercent, 1.0f));
+        //wavePower.UpdateModifiers();
+
+        stats.GetStat<CharAttributes>(CharStatsType.HandSize).ScaleStat(10);
 
         DisplayStatValues();
     }	

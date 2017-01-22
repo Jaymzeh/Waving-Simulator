@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour {
     public float attackTimer = 1;
     float timer = 0;
     bool attacking = false;
+    bool dying = false;
+    public AudioClip[] spawnSound;
+    public AudioClip[] deathSound;
 
     void Start() {
         SpriteRenderer bodySprite = GetComponent<SpriteRenderer>();
@@ -18,12 +21,16 @@ public class Enemy : MonoBehaviour {
         Color colour = new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 1);
         bodySprite.color = colour;
         GetComponentInChildren<SpriteRenderer>().color = colour;
+
+        AudioControl.instance.PlaySFX(spawnSound[Random.Range(0,spawnSound.Length)]);
     }
 
     // Update is called once per frame
     void Update() {
         if (!GameController.Paused) {
             if (satisfaction >= targetSatisfaction) {
+                if (!dying)
+                    KillEnemy();
                 transform.Translate(0, speed * 1.5f, speed * 0.001f);
                 transform.localScale -= (Vector3.one * 0.005f);
                 if (transform.localScale.x < 0.000001f) {
@@ -47,6 +54,11 @@ public class Enemy : MonoBehaviour {
 
             }
         }
+    }
+
+    void KillEnemy() {
+        AudioControl.instance.PlaySFX(deathSound[Random.Range(0,deathSound.Length)]);
+        dying = true;
     }
 
     void OnMouseEnter() {

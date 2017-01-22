@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CharStatsType{
-    WavePower,
-    Mobility,
-    HandSize,
-    None	
+    WavePower = 5,
+    Mobility = 5,
+    HandSize = 5,
+    None = 0	
 };
