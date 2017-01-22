@@ -5,35 +5,37 @@ using UnityEngine;
 public class MouseWave : MonoBehaviour {
 
     public LayerMask enemyLayer;
+    public ParticleSystem particleSpartikle;
     public float slowWave = 0.25f;
     public float fastWave = 3;
     int direction = 1;
 
     float xMovement, yMovement;
 
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin,ray.direction);
-        RaycastHit hit;
+    void Start() {
+    }
 
-        float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
-        float angleDeg = (180 / Mathf.PI) * angleRad;
-        transform.rotation = Quaternion.Euler(0, 0, angleDeg-45);
+    // Update is called once per frame
+    void Update() {
+        if (!GameController.Paused && GameController.InputEnabled) {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction);
+            RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, enemyLayer)) {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
+            float angleDeg = (180 / Mathf.PI) * angleRad;
+            transform.rotation = Quaternion.Euler(0, 0, angleDeg - 45);
 
-            xMovement = Input.GetAxis("Mouse X");
-            yMovement = Input.GetAxis("Mouse Y");
+            particleSpartikle.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2);
 
-            enemy.satisfaction += 1 + ((10 * xMovement) + (10 * yMovement));
-            //enemy.satisfaction++;
 
+            if (particleSpartikle.isPlaying)
+                particleSpartikle.Stop();
+            if (Physics.Raycast(ray, out hit, enemyLayer)) {
+                if (particleSpartikle.isStopped)
+                    particleSpartikle.Play();
+                particleSpartikle.transform.position = new Vector3(hit.point.x, hit.point.y, 2);
+            }
         }
-
-	}
+    }
 }
