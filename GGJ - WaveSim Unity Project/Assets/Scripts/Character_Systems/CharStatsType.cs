@@ -5,5 +5,6 @@ using UnityEngine;
 public enum CharStatsType{
     WavePower,
     Mobility,
-    HandSize	
+    HandSize,
+    None	
 };

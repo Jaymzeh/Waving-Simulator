@@ -6,7 +6,7 @@ public class CharDefaultStats : CharStatsCollection {
 
     protected override void ConfigureStats()
     {
-        var wavePow = CreateOrGetStat<CharStats>(CharStatsType.WavePower);
+        var wavePow = CreateOrGetStat<CharStatModifiable>(CharStatsType.WavePower);
         wavePow.StatName = "Wave Power";
         wavePow.StatBaseValue = 100;
 
