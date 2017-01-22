@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour {
     public AudioClip newHighScoreClip;
     public static int score;
     public static int highScore;
+    public static int partyCounter;
+    public static int partyTarget = 50;
 
     void Awake() {
          if (instance == null) {
@@ -27,6 +29,10 @@ public class GameController : MonoBehaviour {
     public static void ChangeScene(string scene) {
         if (scene == "Street")
             AudioControl.instance.PlaySFX((AudioClip)Resources.Load("Audio/new_game_pressed.wav"));
+
+        if(scene=="Main Menu")
+            GameController.score = 0;
+
         LoadingScreen.ChangeScene(scene);
     }
 
@@ -37,8 +43,10 @@ public class GameController : MonoBehaviour {
             
             SaveHighScore(score);
             AudioSource source = go.GetComponent<AudioSource>();
+
             instance.StartCoroutine("PlayNewHighScore", source);
         }
+        
     }
 
     IEnumerator PlayNewHighScore(AudioSource source) {

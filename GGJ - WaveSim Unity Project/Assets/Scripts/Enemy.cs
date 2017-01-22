@@ -17,12 +17,14 @@ public class Enemy : MonoBehaviour {
 
     void Start() {
         SpriteRenderer bodySprite = GetComponent<SpriteRenderer>();
-
         Color colour = new Color(Random.Range(0.2f, 1), Random.Range(0.2f, 1), Random.Range(0.2f, 1), 1);
         bodySprite.color = colour;
-        transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = colour;
-
-        AudioControl.instance.PlaySFX(spawnSound[Random.Range(0,spawnSound.Length)]);
+        if (transform.childCount != 0)
+            transform.GetChild(0).GetComponentInChildren<SpriteRenderer>().color = colour;
+        if (gameObject.name.Contains("Boss"))
+            AudioControl.instance.PlayBossSFX(spawnSound[0]);
+        else
+            AudioControl.instance.PlaySFX(spawnSound[Random.Range(0, spawnSound.Length)]);
     }
 
     // Update is called once per frame
@@ -34,15 +36,29 @@ public class Enemy : MonoBehaviour {
                 transform.Translate(0, speed * 1.5f, speed * 0.001f);
                 transform.localScale -= (Vector3.one * 0.005f);
                 if (transform.localScale.x < 0.000001f) {
-                    GameController.score++;
-                    BossSpawner.counter++;
+
+                    if (gameObject.name.Contains("Boss")) {
+                        GameController.score += 10;
+                        GameController.partyCounter+=25;
+                    }
+                    else {
+                        GameController.score++;
+                        BossSpawner.counter++;
+                        GameController.partyCounter ++;
+                    }
                     Destroy(gameObject);
                 }
             }
             else {
-                if (transform.position.y > -4.5f) {
+                if (gameObject.name.Contains("Boss") && transform.localPosition.y >= -0.125014) {
                     transform.Translate(0, -speed, -speed * 0.001f);
                     transform.localScale += (Vector3.one * 0.0005f);
+                }
+                else {
+                    if (transform.localPosition.y >= -4.5) {
+                        transform.Translate(0, -speed, -speed * 0.001f);
+                        transform.localScale += (Vector3.one * 0.0005f);
+                    }
                 }
             }
 
