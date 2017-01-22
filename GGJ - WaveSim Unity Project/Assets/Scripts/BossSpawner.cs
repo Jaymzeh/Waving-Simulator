@@ -29,6 +29,6 @@ public class BossSpawner : MonoBehaviour {
         spawnPos.z = -1;
         GameObject obj = (GameObject)Instantiate(boss, pos, Quaternion.identity);
         obj.transform.parent = window.transform;
-        obj.transform.localPosition = spawnPos;
+        obj.transform.localPosition = new Vector3(0, 0, -1);
     }
 }
