@@ -16,10 +16,17 @@ public class GameController : MonoBehaviour {
     public static int highScore;
 
     void Awake() {
-        instance = this;
+         if (instance == null) {
+            DontDestroyOnLoad(gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+            Destroy(gameObject);
     }
 
     public static void ChangeScene(string scene) {
+        if (scene == "Street")
+            AudioControl.instance.PlaySFX((AudioClip)Resources.Load("Audio/new_game_pressed.wav"));
         LoadingScreen.ChangeScene(scene);
     }
 
