@@ -7,10 +7,10 @@ public class ShowScore : MonoBehaviour {
 
     public Text scoreText, highScoreText;
 
-	void Start () {
+    void Start() {
         if (highScoreText != null)
-            GameController.ReadHighScore();
-	}
+            GameController.highScore = GameController.ReadHighScore();
+    }
 	
 	// Update is called once per frame
 	void Update () {

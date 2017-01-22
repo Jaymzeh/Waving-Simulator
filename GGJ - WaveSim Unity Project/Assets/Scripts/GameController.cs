@@ -27,7 +27,8 @@ public class GameController : MonoBehaviour {
         Paused = true;
         GameObject go = Instantiate(instance.gameOver);
         if (score > highScore) {
-            highScore = score;
+            
+            SaveHighScore(score);
             AudioSource source = go.GetComponent<AudioSource>();
             instance.StartCoroutine("PlayNewHighScore", source);
         }
@@ -42,29 +43,28 @@ public class GameController : MonoBehaviour {
     }
 
     public static int ReadHighScore() {
-        string file = "Highscore.txt";
-        int score = 0;
+        string file = "High_score.txt";
+        
         if (File.Exists(file)) {
+            Debug.Log("File exists");
             StreamReader sr = File.OpenText(file);
             string line = sr.ReadLine();
-            Int32.TryParse(line, out score);
+            Debug.Log(line);
+            return int.Parse(line);
         }
-        return score;
+        return 0;
     }
     public static void SaveHighScore(int newScore) {
-        string filename = "Highscore.txt";
+        string filename = "High_score.txt";
         if (File.Exists(filename)) {
-            Debug.Log(filename + " already exists");
+            StreamWriter sr = File.CreateText(filename);
+            sr.WriteLine(newScore);
+            sr.Close();
             return;
         }
-        StreamWriter sr = File.CreateText(filename);
-        sr.WriteLine(newScore);
-        sr.Close();
     }
 
     public static void ExitGame() {
-        if (score > highScore)
-            SaveHighScore(score);
         Application.Quit();
     }
 }
