@@ -6,16 +6,16 @@ public class CharDefaultStats : CharStatsCollection {
 
     protected override void ConfigureStats()
     {
-        CharStats wavePow = CreateOrGetStat(CharStatsType.WavePower);
+        var wavePow = CreateOrGetStat<CharStats>(CharStatsType.WavePower);
         wavePow.StatName = "Wave Power";
-        wavePow.StatValue = 100;
+        wavePow.StatBaseValue = 100;
 
-        CharStats mobSpd = CreateOrGetStat(CharStatsType.Mobility);
+        var mobSpd = CreateOrGetStat<CharStats>(CharStatsType.Mobility);
         mobSpd.StatName = "Mobility";
-        mobSpd.StatValue = 15;
+        mobSpd.StatBaseValue = 15;
 
-        CharStats handSize = CreateOrGetStat(CharStatsType.HandSize);
+        var handSize = CreateOrGetStat<CharStats>(CharStatsType.HandSize);
         handSize.StatName = "Hand Size";
-        handSize.StatValue = 5;
+        handSize.StatBaseValue = 5;
     }
 }

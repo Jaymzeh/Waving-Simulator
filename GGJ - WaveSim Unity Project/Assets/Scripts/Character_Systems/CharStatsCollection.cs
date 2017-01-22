@@ -33,21 +33,26 @@ public class CharStatsCollection
         return null;
     }
 
-    //Creating the stat in the dictionary
-    protected CharStats CreateStat(CharStatsType statType)
+    public T GetStat<T>(CharStatsType type) where T : CharStats
     {
-        CharStats stat = new CharStats();
+        return GetStat(type) as T;
+    }
+
+    //Creating the stat in the dictionary
+    protected T CreateStat<T>(CharStatsType statType) where T : CharStats
+    {
+        T stat = System.Activator.CreateInstance<T>();
         _statDict.Add(statType, stat);
         return stat;
     }
 
     //Get the instance of the stat or create a new one if not available
-    protected CharStats CreateOrGetStat(CharStatsType statType)
+    protected T CreateOrGetStat<T>(CharStatsType statType) where T :CharStats
     {
-        CharStats stat = GetStat(statType);
+        T stat = GetStat<T>(statType);
         if(stat == null)
         {
-            stat = CreateStat(statType);
+            stat = CreateStat<T>(statType);
         }
         return stat;
     }
