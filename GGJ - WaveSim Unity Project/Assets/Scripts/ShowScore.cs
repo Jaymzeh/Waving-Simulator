@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class ShowScore : MonoBehaviour {
 
-    Text text;
+    public Text scoreText, highScoreText;
 
 	void Start () {
-        text = GetComponent<Text>();
+        if (highScoreText != null)
+            GameController.ReadHighScore();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        text.text = "Score: " + GameController.score.ToString();
+        if (scoreText != null)
+            scoreText.text = "Score: " + GameController.score.ToString();
+
+        if (highScoreText != null)
+            highScoreText.text = "Highscore: " + GameController.highScore.ToString();
 	}
 }
