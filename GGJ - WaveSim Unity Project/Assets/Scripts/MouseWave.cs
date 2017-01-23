@@ -5,7 +5,6 @@ using UnityEngine;
 public class MouseWave : MonoBehaviour {
 
     public LayerMask enemyLayer;
-    public ParticleSystem particleSpartikle;
     public float slowWave = 0.25f;
     public float fastWave = 3;
     int direction = 1;
@@ -13,6 +12,7 @@ public class MouseWave : MonoBehaviour {
     float xMovement, yMovement;
 
     void Start() {
+        GameController.score = 0;
     }
 
     // Update is called once per frame
@@ -20,22 +20,10 @@ public class MouseWave : MonoBehaviour {
         if (!GameController.Paused && GameController.InputEnabled) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction);
-            RaycastHit hit;
 
             float angleRad = Mathf.Atan2(Input.mousePosition.y - transform.position.y, Input.mousePosition.x - transform.position.x);
             float angleDeg = (180 / Mathf.PI) * angleRad;
             transform.rotation = Quaternion.Euler(0, 0, angleDeg - 45);
-
-            particleSpartikle.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2);
-
-
-            if (particleSpartikle.isPlaying)
-                particleSpartikle.Stop();
-            if (Physics.Raycast(ray, out hit, enemyLayer)) {
-                if (particleSpartikle.isStopped)
-                    particleSpartikle.Play();
-                particleSpartikle.transform.position = new Vector3(hit.point.x, hit.point.y, 2);
-            }
         }
     }
 }
